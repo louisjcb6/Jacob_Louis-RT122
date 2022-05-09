@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}All Categories{% endblock title %}
+{% block style %}
+    <style>
+        .table{
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+    </style>
+{% endblock style %}
+
+
+
+{% block main %}
+<a href="{% url 'category_create' %}" class="btn btn-info mt-3 float-end">Ajouter</a>
+<table class="table table-borderless mt-3">
+    <thead>
+      <tr>
+        <th scope="col">Numéro</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Date de Création</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for cat in category %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{cat.name}}</td>
+        <td>{{cat.create|date:'d-m-Y'}}</td>
+        <td>
+            <a href="{% url 'category_update' pk=cat.id %}" class="btn btn-info">Modifier</a>
+            <a href="{% url 'category_delete' pk=cat.id %}" class="btn btn-danger">Supprimer</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock main %}

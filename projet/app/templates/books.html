@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}All Categories{% endblock title %}
+{% block style %}
+    <style>
+        .table{
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+    </style>
+{% endblock style %}
+
+
+
+{% block main %}
+<a href="{% url 'book_create' %}" class="btn btn-info mt-3 float-end">Ajouter</a>
+<table class="table table-borderless mt-3">
+    <thead>
+      <tr>
+        <th scope="col">Numéro</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Auteur</th>
+        <th scope="col">Catégorie</th>
+        <th scope="col">Date de parution</th>
+        <th scope="col">Nombres de pages</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.category}}</td>
+        <td>{{book.release_date|date:'d-m-Y'}}</td>
+        <td>{{book.number_of_pages}}</td>
+        <td>
+            <a href="{% url 'book_update' pk=book.id %}" class="btn btn-info">Modifier</a>
+            <a href="{% url 'book_delete' pk=book.id %}" class="btn btn-danger">Supprimer</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock main %}
